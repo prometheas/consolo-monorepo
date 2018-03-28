@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/prometheas/node-console-enchanced/issues"
   },
-  "homepage": "https://github.com/prometheas/node-console-enchanced#readme"
+  "homepage": "https://github.com/prometheas/node-console-enchanced#readme",
+  "devDependencies": {
+    "lerna": "^2.9.0"
+  }
 }
