@@ -18,7 +18,7 @@ export const enhanceConsole = () => {
 };
 
 export const log = (level, ...logArgs) => {
-  throw Error('Not yet implemented.', logArgs);
+  console._preEnhancement.log(level);
 };
 
 export const restoreConsole = () => {

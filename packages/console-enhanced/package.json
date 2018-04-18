@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/prometheas/node-console-enchanced/issues"
   },
-  "homepage": "https://github.com/prometheas/node-console-enchanced#readme"
+  "homepage": "https://github.com/prometheas/node-console-enchanced#readme",
+  "devDependencies": {
+    "std-mocks": "^1.0.1"
+  }
 }

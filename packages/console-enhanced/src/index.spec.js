@@ -4,6 +4,7 @@
 /* eslint no-underscore-dangle: 0 */
 
 import { expect } from 'chai';
+import stdMocks from 'std-mocks';
 
 import {
   enhanceConsole,
@@ -23,6 +24,9 @@ const originalConsoleMethods = {
 };
 
 describe('Library', () => {
+  before(() => (stdMocks.use()));
+  after(() => (stdMocks.restore()));
+
   describe('#enhanceConsole()', () => {
     it('should create a _preEnhancement object on console', () => {
       expect(console._preEnhancement).to.equal(undefined);
@@ -40,8 +44,11 @@ describe('Library', () => {
   });
 
   describe('#log()', () => {
-    it('should be a function', () => {
-      expect(log).to.be.a('function');
+    it('should write to stdout', () => {
+      log('hello');
+      log('foo');
+
+      expect(stdMocks.flush().stdout.slice(6)).to.equal(3);
     });
   });
 
