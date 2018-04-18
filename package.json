@@ -2,7 +2,7 @@
   "name": "console-enchanced-monorepo",
   "description": "Progressively enhances the console object into a proper logger.",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha --opts .mocha.opts"
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,8 @@
   },
   "homepage": "https://github.com/prometheas/node-console-enchanced#readme",
   "devDependencies": {
+    "babel-preset-env": "^1.6.1",
+    "babel-register": "^6.26.0",
     "chai": "^4.1.2",
     "eslint": "^4.19.1",
     "lerna": "^2.9.0",
