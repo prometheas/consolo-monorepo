@@ -1,6 +1,5 @@
 {
-  "name": "console-enchanced",
-  "version": "0.0.0",
+  "name": "console-enchanced-monorepo",
   "description": "Progressively enhances the console object into a proper logger.",
   "scripts": {
     "test": "mocha"
