@@ -2,7 +2,6 @@
   "name": "console-enchanced",
   "version": "0.0.0",
   "description": "Progressively enhances the console object into a proper logger.",
-  "main": "index.js",
   "scripts": {
     "test": "mocha"
   },
