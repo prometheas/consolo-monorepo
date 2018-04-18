@@ -1,0 +1,21 @@
+{
+  "name": "console-enhanced",
+  "version": "0.0.0",
+  "description": "Progressively enhances the console object into a proper logger.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prometheas/node-console-enchanced.git"
+  },
+  "keywords": [
+    "logging",
+    "logger",
+    "console"
+  ],
+  "author": "John Lianoglou",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/prometheas/node-console-enchanced/issues"
+  },
+  "homepage": "https://github.com/prometheas/node-console-enchanced#readme"
+}
