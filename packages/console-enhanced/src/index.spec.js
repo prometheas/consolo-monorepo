@@ -1,5 +1,8 @@
 /* eslint-env node, mocha */
 
+/* eslint no-console: 0 */
+/* eslint no-underscore-dangle: 0 */
+
 import { expect } from 'chai';
 
 import {
@@ -8,10 +11,31 @@ import {
   restoreConsole,
 } from './index';
 
+/**
+ * @var keep references to original methods for later comparison
+ */
+const originalConsoleMethods = {
+  debug: console.debug,
+  error: console.error,
+  info: console.info,
+  log: console.log,
+  warn: console.warn,
+};
+
 describe('Library', () => {
   describe('#enhanceConsole()', () => {
-    it('should be a function', () => {
-      expect(enhanceConsole).to.be.a('function');
+    it('should create a _preEnhancement object on console', () => {
+      expect(console._preEnhancement).to.equal(undefined);
+      enhanceConsole();
+      expect(console._preEnhancement).to.be.an('object');
+    });
+
+    it('should override the logging methods', () => {
+      expect(console.debug).not.to.equal(originalConsoleMethods.debug);
+      expect(console.error).not.to.equal(originalConsoleMethods.error);
+      expect(console.info).not.to.equal(originalConsoleMethods.info);
+      expect(console.log).not.to.equal(originalConsoleMethods.log);
+      expect(console.warn).not.to.equal(originalConsoleMethods.warn);
     });
   });
 
@@ -23,7 +47,17 @@ describe('Library', () => {
 
   describe('#restoreConsole()', () => {
     it('should restore the console methods', () => {
-      expect(restoreConsole).to.be.a('function');
+      restoreConsole();
+
+      expect(console.debug).to.equal(originalConsoleMethods.debug);
+      expect(console.error).to.equal(originalConsoleMethods.error);
+      expect(console.info).to.equal(originalConsoleMethods.info);
+      expect(console.log).to.equal(originalConsoleMethods.log);
+      expect(console.warn).to.equal(originalConsoleMethods.warn);
+    });
+
+    it('should remove the console._preEnhancement property', () => {
+      expect(console._preEnhancement).to.equal(undefined);
     });
   });
 });
