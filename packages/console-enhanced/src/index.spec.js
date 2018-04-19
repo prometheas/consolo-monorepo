@@ -26,10 +26,10 @@ const originalConsoleMethods = {
 
 describe('Library', () => {
   describe('#enhanceConsole()', () => {
-    it('should create a _preEnhancement object on console', () => {
-      expect(console._preEnhancement).to.equal(undefined);
+    it('should create a `consoloEnhanced` property on console', () => {
+      expect(console.consoloEnhanced).to.be.undefined;
       enhanceConsole();
-      expect(console._preEnhancement).to.be.an('object');
+      expect(console.consoloEnhanced).to.be.true;
     });
 
     it('should override the logging methods', () => {

@@ -15,6 +15,7 @@ export const enhanceConsole = () => {
   console.info = () => (true);
   console.log = () => (true);
   console.warn = () => (true);
+  console.consoloEnhanced = true;
 };
 
 export const log = (...args) => {
