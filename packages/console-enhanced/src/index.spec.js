@@ -25,9 +25,6 @@ const originalConsoleMethods = {
 };
 
 describe('Library', () => {
-  before(() => (stdMocks.use()));
-  after(() => (stdMocks.restore()));
-
   describe('#enhanceConsole()', () => {
     it('should create a _preEnhancement object on console', () => {
       expect(console._preEnhancement).to.equal(undefined);
@@ -46,8 +43,10 @@ describe('Library', () => {
 
   describe('#log()', () => {
     it('should write to stdout', () => {
+      stdMocks.use({ print: true });
       log('hello');
       log('foo');
+      stdMocks.restore();
 
       const { stdout } = stdMocks.flush();
 
