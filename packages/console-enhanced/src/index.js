@@ -17,8 +17,14 @@ export const enhanceConsole = () => {
   console.warn = () => (true);
 };
 
-export const log = (level, ...logArgs) => {
-  console._preEnhancement.log(level);
+export const log = (...args) => {
+  let level = (args.length > 1) ? args.shift() : undefined;
+
+  if (!level) {
+    level = 'info';
+  }
+
+  console._preEnhancement.log(...args);
 };
 
 export const restoreConsole = () => {

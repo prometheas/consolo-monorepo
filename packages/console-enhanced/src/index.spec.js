@@ -48,7 +48,17 @@ describe('Library', () => {
       log('hello');
       log('foo');
 
-      expect(stdMocks.flush().stdout.slice(6)).to.equal(3);
+      const { stdout } = stdMocks.flush();
+
+      expect(
+        stdout.includes('hello\n'),
+        'should see "hello" in stdout',
+      ).to.be.true;
+
+      expect(
+        stdout.includes('foo\n'),
+        'should see "foo" in stdout',
+      ).to.be.true;
     });
   });
 
