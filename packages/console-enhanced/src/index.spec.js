@@ -2,6 +2,7 @@
 
 /* eslint no-console: 0 */
 /* eslint no-underscore-dangle: 0 */
+/* eslint no-unused-expressions: 0 */
 
 import { expect } from 'chai';
 import stdMocks from 'std-mocks';
