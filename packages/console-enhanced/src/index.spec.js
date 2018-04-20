@@ -43,7 +43,7 @@ describe('Library', () => {
 
   describe('#log()', () => {
     it('should write to stdout', () => {
-      stdMocks.use({ print: true });
+      stdMocks.use({ print: false });
       log('hello');
       log('foo');
       stdMocks.restore();
