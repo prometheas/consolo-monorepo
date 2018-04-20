@@ -24,6 +24,13 @@ const originalConsoleMethods = {
   warn: console.warn,
 };
 
+function containsConsoloMessage(messages) {
+  return messages.reduce((hasAlreadyBeenFound, currentItem) => (
+    hasAlreadyBeenFound
+    || !!String(currentItem).match(/^Consolo: /)
+  ), false);
+}
+
 describe('Library', () => {
   describe('#enhanceConsole()', () => {
     it('should create a `consoloEnhanced` property on console', () => {
@@ -42,31 +49,62 @@ describe('Library', () => {
   });
 
   describe('#log()', () => {
+    describe('with valid log level', () => {
+      let output;
+
+      before(() => {
+        stdMocks.use({ print: false });
+        log('info', 'some information to report');
+        log('error', 'an error message');
+        stdMocks.restore();
+
+        output = stdMocks.flush();
+        output.combined = [...output.stdout, ...output.stderr];
+      });
+
+      it('should write the message to either stdout or stderr', () => {
+        expect(
+          output.combined.reduce((acc, currMessage) => (acc || !!currMessage.match(/^some information to report/)), false),
+          'confirm "info" log level',
+        ).to.be.true;
+
+        expect(
+          output.combined.reduce((acc, currMessage) => (acc || !!currMessage.match(/^an error message/)), false),
+          'confirm "error" log level',
+        ).to.be.true;
+      });
+
+      it('should not result in Consolo warnings in stderr', () => {
+        expect(
+          containsConsoloMessage(output.stderr),
+          'confirm messages with level do not warn on stderr',
+        ).to.be.false;
+      });
+    });
+
     describe('missing log level', () => {
       let output;
 
       before(() => {
-      stdMocks.use({ print: false });
-      log('hello');
-      stdMocks.restore();
+        stdMocks.use({ print: false });
+        log('hello');
+        stdMocks.restore();
 
         output = stdMocks.flush();
       });
 
       it('should write the message to stdout', () => {
-      expect(
+        expect(
           output.stdout.includes('hello\n'),
-        'should see "hello" in stdout',
-      ).to.be.true;
+          'should see "hello" in stdout',
+        ).to.be.true;
       });
 
       it('should warn about missing log level to stderr', () => {
-        const foundWarning = output.stderr.reduce((hasAlreadyBeenFound, currentItem) => (
-          hasAlreadyBeenFound
-          || !!String(currentItem).match(/Consolo: log level missing/)
-        ), false);
-
-        expect(foundWarning).to.be.true;
+        expect(
+          containsConsoloMessage(output.stderr),
+          'confirm attempt to log without level warns to stderr',
+        ).to.be.true;
       });
     });
   });

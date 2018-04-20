@@ -100,7 +100,11 @@ export const log = (...args) => {
     }
   }
 
+  if (level === 'error') {
+    preservedConsoleMethods.error(...args);
+  } else {
   preservedConsoleMethods.log(...args);
+  }
 };
 
 /**
