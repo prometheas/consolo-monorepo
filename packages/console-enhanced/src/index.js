@@ -9,12 +9,11 @@ const preservedConsoleMethods = {
   warn: console.warn,
 };
 
+
 export const enhanceConsole = () => {
-  console.debug = () => (true);
-  console.error = () => (true);
-  console.info = () => (true);
-  console.log = () => log;
-  console.warn = () => (true);
+  Object.keys(consoleMethodOverrides).forEach((methodName) => {
+    console[methodName] = consoleMethodOverrides[methodName];
+  });
 
   console.consoloEnhanced = true;
 };
@@ -37,4 +36,18 @@ export const restoreConsole = () => {
   console.info = preservedConsoleMethods.info;
   console.log = preservedConsoleMethods.log;
   console.warn = preservedConsoleMethods.warn;
+};
+  console.debug = preservedConsoleMethods.debug;
+  console.error = preservedConsoleMethods.error;
+  console.info = preservedConsoleMethods.info;
+  console.log = preservedConsoleMethods.log;
+  console.warn = preservedConsoleMethods.warn;
+};
+
+const consoleMethodOverrides = {
+  debug: (...args) => (preservedConsoleMethods.debug(...args)),
+  error: (...args) => (preservedConsoleMethods.error(...args)),
+  info: (...args) => (preservedConsoleMethods.info(...args)),
+  log,
+  warn: (...args) => (preservedConsoleMethods.warn(...args)),
 };
