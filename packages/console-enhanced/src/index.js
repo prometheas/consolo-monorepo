@@ -51,7 +51,7 @@ export const extractLogLevelFromArgs = (args, levels) => (
  * @returns {void}
  */
 export const log = (...args) => {
-  let level = extractLogLevelFromArgs(
+  const level = extractLogLevelFromArgs(
     args,
     ['debug', 'error', 'info', 'warn'],
   );
