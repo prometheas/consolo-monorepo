@@ -42,23 +42,36 @@ describe('Library', () => {
   });
 
   describe('#log()', () => {
-    it('should write to stdout', () => {
+    describe('missing log level', () => {
+      let stdout;
+      let stderr;
+
+      before(() => {
       stdMocks.use({ print: false });
       log('hello');
-      log('foo');
       stdMocks.restore();
 
-      const { stdout } = stdMocks.flush();
+        const output = stdMocks.flush();
 
+        stdout = output.stdout;
+        stderr = output.stderr;
+      });
+
+      it('should write the message to stdout', () => {
       expect(
         stdout.includes('hello\n'),
         'should see "hello" in stdout',
       ).to.be.true;
+      });
 
-      expect(
-        stdout.includes('foo\n'),
-        'should see "foo" in stdout',
-      ).to.be.true;
+      it('should warn about missing log level to stderr', () => {
+        const foundWarning = stderr.reduce((hasAlreadyBeenFound, currentItem) => (
+          hasAlreadyBeenFound
+          || !!String(currentItem).match(/Consolo: log level missing/)
+        ), false);
+
+        expect(foundWarning).to.be.true;
+      });
     });
   });
 

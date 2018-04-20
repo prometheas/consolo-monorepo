@@ -1,6 +1,8 @@
 /* eslint no-console: 0 */
 /* eslint no-underscore-dangle: 0 */
 
+import { format } from 'util';
+
 const preservedConsoleMethods = {
   debug: console.debug,
   error: console.error,
@@ -44,6 +46,32 @@ export const extractLogLevelFromArgs = (args, levels) => (
 );
 
 /**
+ * Answers whether the args array appears to be output form mocha tests.
+ *
+ * @param {Array} args a list of arguments to evaluate
+ *
+ * @returns {bool}
+ */
+const isConsoloMochaTestOutput = (args) => {
+  if (!process.env.CONSOLO_TESTING) {
+    return false;
+  }
+
+  const isDescribeOutput = (
+    args.length === 3
+    && String(args[0]).includes('\u001b')
+    && String(args[1]).match(/^\s+$/)
+    && args.reduce((prev, currArg) => (prev && typeof currArg === 'string'), true)
+  );
+
+  /* eslint-disable no-control-regex */
+  const isItOutput = String(args[0]).match(/^\s+\u001b.+(✓|-|%d+\))/);
+  /* eslint-enable no-control-regex */
+
+  return isDescribeOutput || isItOutput;
+};
+
+/**
  * Sends a message to logger at the log level specified by the first argument.
  *
  * @param {Array} args the arguments provided by the caller
@@ -57,7 +85,19 @@ export const log = (...args) => {
   );
 
   if (!level) {
-    level = 'info';
+    // this is necessary to keep the project's mocha output clean
+    if (!isConsoloMochaTestOutput(args)) {
+      const err = {
+        message: 'Consolo: log level missing from call console.log()',
+      };
+
+      Error.captureStackTrace(err);
+      process.stderr.write(format(
+        '%s\n%s',
+        err.message,
+        err.stack,
+      ));
+    }
   }
 
   preservedConsoleMethods.log(...args);

@@ -2,8 +2,8 @@
   "name": "console-enchanced-monorepo",
   "description": "Progressively enhances the console object into a proper logger.",
   "scripts": {
-    "tdd": "mocha --opts .mocha.opts --watch --reporter dot",
-    "test": "mocha --opts .mocha.opts"
+    "tdd": "env CONSOLO_TESTING=1 mocha --opts .mocha.opts --watch --reporter dot",
+    "test": "env CONSOLO_TESTING=1 mocha --opts .mocha.opts"
   },
   "repository": {
     "type": "git",
