@@ -98,9 +98,9 @@ export const log = (...args) => {
         err.stack,
       ));
     }
-  }
 
-  if (level === 'error') {
+    preservedConsoleMethods.error(...args);
+  } else if (level === 'error') {
     preservedConsoleMethods.error(...args);
   } else {
   preservedConsoleMethods.log(...args);

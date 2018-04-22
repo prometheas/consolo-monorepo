@@ -114,10 +114,10 @@ describe('Library', () => {
         output = stdMocks.flush();
       });
 
-      it('should write the message to stdout', () => {
+      it('should write the message to stderr', () => {
         expect(
-          output.stdout.includes('hello\n'),
-          'should see "hello" in stdout',
+          output.stderr.includes('hello\n'),
+          'should see "hello" in stderr',
         ).to.be.true;
       });
 
