@@ -14,7 +14,7 @@ import {
 } from './index';
 
 /**
- * @var keep references to original methods for later comparison
+ * @var {object} originalConsoleMethods references to original methods for later comparison
  */
 const originalConsoleMethods = {
   debug: console.debug,
@@ -24,11 +24,32 @@ const originalConsoleMethods = {
   warn: console.warn,
 };
 
-function containsConsoloMessage(messages) {
-  return messages.reduce((hasAlreadyBeenFound, currentItem) => (
+/**
+ * Answers whether the array contains any elements that match the provided
+ * pattern.
+ *
+ * @param {RegExp} pattern pattern for which to search the list
+ * @param {Array} list list of strings (or data with #toString() method)
+ *
+ * @returns {boolean} true if pattern is found in the list
+ */
+function containsMatchingItem(pattern, list) {
+  return list.reduce((hasAlreadyBeenFound, currentItem) => (
     hasAlreadyBeenFound
-    || !!String(currentItem).match(/^Consolo: /)
+    || !!String(currentItem).match(pattern)
   ), false);
+}
+
+/**
+ * Searching through an array of strings to determine whether any seem to be
+ * a message from the Consolo package.
+ *
+ * @param {Array<string>} messages list of message strings
+ *
+ * @returns bool true when a string is found to start with `Consolo:`
+ */
+function containsConsoloMessage(messages) {
+  return containsMatchingItem(/^Consolo: /, messages);
 }
 
 describe('Library', () => {
@@ -64,12 +85,12 @@ describe('Library', () => {
 
       it('should write the message to either stdout or stderr', () => {
         expect(
-          output.combined.reduce((acc, currMessage) => (acc || !!currMessage.match(/^some information to report/)), false),
+          containsMatchingItem(/^some information to report/, output.combined),
           'confirm "info" log level',
         ).to.be.true;
 
         expect(
-          output.combined.reduce((acc, currMessage) => (acc || !!currMessage.match(/^an error message/)), false),
+          containsMatchingItem(/^an error message/, output.combined),
           'confirm "error" log level',
         ).to.be.true;
       });
