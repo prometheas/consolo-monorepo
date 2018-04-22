@@ -1,7 +1,9 @@
 /* eslint no-console: 0 */
 /* eslint no-underscore-dangle: 0 */
+/* eslint no-use-before-define: 0 */
 
 import { format } from 'util';
+import util from './util';
 
 const preservedConsoleMethods = {
   debug: console.debug,
@@ -11,6 +13,15 @@ const preservedConsoleMethods = {
   warn: console.warn,
 };
 
+const logLevels = {
+  default: ['debug', 'error', 'info', 'warn'],
+};
+
+const defaultConfigs = {
+  levels: logLevels.default,
+};
+
+const runtimeConfigs = { ...defaultConfigs };
 
 /**
  * Applies enhancements to the global console object.
@@ -24,69 +35,6 @@ export const enhanceConsole = () => {
 };
 
 /**
- * Given a list of two or more values in the `args` argument and a set of
- * "recognized" log level names in the `levels` argument, this function will
- * shift the first item in the `args` array off the list and return that string
- * as the logging level.  (Note that this mutates the `args` array.)
- *
- * If there are fewer than two items in the `args` array, or the first item in
- * that array is not found in the `levels` array, the `args` array is not
- * mutated, and `undefined` is returned.
- *
- * @param {Array} args array of args
- * @param {Array<string>} levels array of recognized log level names
- *
- * @returns {string|undefined} the log level, if found, otherwise `undefined`
- */
-export const extractLogLevelFromArgs = (args, levels) => (
-  (
-    args.length > 1
-    && levels.includes(args[0])
-  ) ? args.shift() : undefined
-);
-
-/**
- * Answers whether the args array appears to be output form mocha tests.
- *
- * @param {Array} args a list of arguments to evaluate
- *
- * @returns {bool}
- */
-const isConsoloMochaTestOutput = (args) => {
-  if (!process.env.CONSOLO_TESTING) {
-    return false;
-  }
-
-  const isDescribeOutput = (
-    args.length === 3
-    && String(args[0]).includes('\u001b')
-    && String(args[1]).match(/^\s+$/)
-    && args.reduce((prev, currArg) => (prev && typeof currArg === 'string'), true)
-  );
-
-  /* eslint-disable no-control-regex */
-  const isItOutput = String(args[0]).match(/^\s+\u001b.+(✓|-|%d+\))/);
-  /* eslint-enable no-control-regex */
-
-  return isDescribeOutput || isItOutput;
-};
-
-/**
- * Determines whether a colleciton of arguments intended for Consolo#log()
- * seem to use an unrecognized log level.  This is intended to flag potential
- * use of misspelled levels.
- *
- * @param {Array} args arguments array
- *
- * @returns {boolean} true if the first arg seems to be an uknown log level
- */
-const usesUnknownLogLevel = args => (
-  args.length > 1
-  && typeof args[0] === 'string'
-  && args[0].match(/^\S+$/)
-);
-
-/**
  * Sends a message to logger at the log level specified by the first argument.
  *
  * @param {Array} args the arguments provided by the caller
@@ -94,19 +42,19 @@ const usesUnknownLogLevel = args => (
  * @returns {void}
  */
 export const log = (...args) => {
-  const level = extractLogLevelFromArgs(
+  const level = util.extractLogLevelFromArgs(
     args,
-    ['debug', 'error', 'info', 'warn'],
+    runtimeConfigs.levels,
   );
 
   if (!level) {
     // this is necessary to keep the project's mocha output clean
-    if (!isConsoloMochaTestOutput(args)) {
+    if (!util.isConsoloMochaTestOutput(args)) {
       const err = {
         message: 'Consolo: log level missing from call console.log()',
       };
 
-      if (usesUnknownLogLevel(args)) {
+      if (util.usesUnknownLogLevel(args, runtimeConfigs.levels)) {
         err.message = `Consolo: unknown log level "${args[0]}" used`;
       }
 
@@ -122,7 +70,7 @@ export const log = (...args) => {
   } else if (level === 'error') {
     preservedConsoleMethods.error(...args);
   } else {
-  preservedConsoleMethods.log(...args);
+    preservedConsoleMethods.log(...args);
   }
 };
 
