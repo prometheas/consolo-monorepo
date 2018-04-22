@@ -1,0 +1,24 @@
+{
+  "name": "consolo",
+  "version": "0.0.0",
+  "description": "A progressive enhancement of Node's console into a logger that is not at all scruffy-looking.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prometheas/node-consolo-monorepo.git"
+  },
+  "keywords": [
+    "logging",
+    "logger",
+    "console"
+  ],
+  "author": "John Lianoglou",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/prometheas/node-consolo-monorepo/issues"
+  },
+  "homepage": "https://github.com/prometheas/node-consolo-monorepo#readme",
+  "devDependencies": {
+    "std-mocks": "^1.0.1"
+  }
+}
