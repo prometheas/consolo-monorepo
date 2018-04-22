@@ -103,6 +103,32 @@ describe('Library', () => {
       });
     });
 
+    describe('with invalid log level', () => {
+      let output;
+
+      before(() => {
+        stdMocks.use({ print: false });
+        log('unregistered', 'some message logged under a "bad" log level');
+        stdMocks.restore();
+
+        output = stdMocks.flush();
+      });
+
+      it('should write message to stderr', () => {
+        expect(
+          containsMatchingItem(/"bad" log level\b/, output.stderr),
+          'messages of unknown log levels must go to stderr',
+        ).to.be.true;
+      });
+
+      it('should write an "unknown log level" warning to stderr', () => {
+        expect(
+          containsMatchingItem(/\bunknown log level\b/, output.stderr),
+          'warn to stderr when unknown log levels are supplied',
+        ).to.be.true;
+      });
+    });
+
     describe('missing log level', () => {
       let output;
 

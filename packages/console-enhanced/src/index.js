@@ -72,6 +72,21 @@ const isConsoloMochaTestOutput = (args) => {
 };
 
 /**
+ * Determines whether a colleciton of arguments intended for Consolo#log()
+ * seem to use an unrecognized log level.  This is intended to flag potential
+ * use of misspelled levels.
+ *
+ * @param {Array} args arguments array
+ *
+ * @returns {boolean} true if the first arg seems to be an uknown log level
+ */
+const usesUnknownLogLevel = args => (
+  args.length > 1
+  && typeof args[0] === 'string'
+  && args[0].match(/^\S+$/)
+);
+
+/**
  * Sends a message to logger at the log level specified by the first argument.
  *
  * @param {Array} args the arguments provided by the caller
@@ -90,6 +105,10 @@ export const log = (...args) => {
       const err = {
         message: 'Consolo: log level missing from call console.log()',
       };
+
+      if (usesUnknownLogLevel(args)) {
+        err.message = `Consolo: unknown log level "${args[0]}" used`;
+      }
 
       Error.captureStackTrace(err);
       process.stderr.write(format(
