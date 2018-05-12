@@ -20,7 +20,7 @@ export const enhanceConsole = (adaptor) => {
   util.validateAdaptor(adaptor);
 
   consoloAdaptor = adaptor;
-  consoloAdaptor.enhanceConsole();
+  consoloAdaptor.enhanceConsole(console);
 
   console.consoloEnhanced = true;
 };
@@ -35,7 +35,7 @@ export const enhanceConsole = (adaptor) => {
 export const log = (...args) => {
   const level = util.extractLogLevelFromArgs(
     args,
-    consoloAdaptor.logLevels,
+    consoloAdaptor,
   );
 
   if (!level) {
@@ -45,7 +45,7 @@ export const log = (...args) => {
         message: 'Consolo: log level missing from call console.log()',
       };
 
-      if (util.usesUnknownLogLevel(args, consoloAdaptor.logLevels)) {
+      if (!consoloAdaptor.isLogLevel(args[0])) {
         err.message = `Consolo: unknown log level "${args[0]}" used`;
       }
 
@@ -59,7 +59,7 @@ export const log = (...args) => {
 
     preservedConsoleMethods.error(...args);
   } else {
-    consoloAdaptor.log(...args);
+    consoloAdaptor.log(level, ...args);
   }
 };
 

@@ -1,4 +1,4 @@
-export default {
+const api = {
   /**
    * Given a list of two or more values in the `args` argument and a set of
    * "recognized" log level names in the `levels` argument, this function will
@@ -10,16 +10,19 @@ export default {
    * mutated, and `undefined` is returned.
    *
    * @param {Array} args array of args
-   * @param {Array<string>} levels array of recognized log level names
+   * @param {ConsoloAdaptor} levels array of recognized log level names
    *
    * @returns {string|undefined} the log level, if found, otherwise `undefined`
    */
-  extractLogLevelFromArgs: (args, levels) => (
-    (
-      args.length > 1
-      && levels.includes(args[0])
-    ) ? args.shift() : undefined
-  ),
+  extractLogLevelFromArgs: (args, adaptor) => {
+    let level;
+
+    if (args.length > 1 && adaptor.isLogLevel(args[0])) {
+      level = args.shift();
+    }
+
+    return level;
+  },
 
   /**
    * Answers whether the args array appears to be output form mocha tests.
@@ -48,28 +51,6 @@ export default {
   },
 
   /**
-   * Determines whether a colleciton of arguments intended for Consolo#log()
-   * seem to use an unrecognized log level.  This is intended to flag potential
-   * use of misspelled levels.
-   *
-   * @param {Array} args arguments array
-   *
-   * @returns {boolean} true if the first arg seems to be an uknown log level
-   */
-  usesUnknownLogLevel: (args, levels) => {
-    if (levels === undefined) {
-      throw TypeError('Expected array of strings for levels argument');
-    }
-
-    return (
-      args.length > 1
-      && typeof args[0] === 'string'
-      && args[0].match(/^\S+$/)
-      && !levels.includes(args[0])
-    );
-  },
-
-  /**
    * Throws an error if the supplied value does not seem to be a valid Consolo
    * adaptor.
    *
@@ -87,3 +68,5 @@ export default {
     }
   },
 };
+
+export default api;

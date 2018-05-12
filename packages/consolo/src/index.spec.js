@@ -13,6 +13,8 @@ import {
   restoreConsole,
 } from './index';
 
+import MockAdaptor from './MockAdaptor';
+
 /**
  * @var {object} originalConsoleMethods references to original methods for later comparison
  */
@@ -54,19 +56,7 @@ function containsConsoloMessage(messages) {
 
 describe('Library', () => {
   describe('#enhanceConsole()', () => {
-    const mockAdaptor = {
-      enhanceConsole: () => {
-        console.log = mockAdaptor.log;
-        console.debug = (...args) => { mockAdaptor.log('debug', ...args); };
-        console.error = (...args) => { mockAdaptor.log('error', ...args); };
-        console.info = (...args) => { mockAdaptor.log('info', ...args); };
-        console.warn = (...args) => { mockAdaptor.log('warn', ...args); };
-      },
-      log: (...args) => {
-        originalConsoleMethods.log(...args);
-      },
-      logLevels: ['debug', 'error', 'info', 'warn'],
-    };
+    const mockAdaptor = new MockAdaptor();
 
     it('should throw an error if not supplied an adaptor instance', () => {
       expect(
@@ -116,12 +106,12 @@ describe('Library', () => {
 
       it('should write the message to either stdout or stderr', () => {
         expect(
-          containsMatchingItem(/^some information to report/, output.combined),
+          containsMatchingItem(/\bsome information to report/, output.combined),
           'confirm "info" log level',
         ).to.be.true;
 
         expect(
-          containsMatchingItem(/^an error message/, output.combined),
+          containsMatchingItem(/\ban error message/, output.combined),
           'confirm "error" log level',
         ).to.be.true;
       });

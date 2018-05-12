@@ -7,11 +7,16 @@
 import { expect } from 'chai';
 
 import util from './util';
+import MockAdaptor from './MockAdaptor';
 
 describe('util', () => {
   const levels = ['debug', 'info', 'warn', 'error'];
 
   describe('#extractLogLevelFromArgs()', () => {
+    const mockAdaptor = new MockAdaptor({
+      logLevelNames: levels,
+    });
+
     describe('when valid log level is found', () => {
       it('should return the log level', () => {
         const args = [
@@ -19,8 +24,8 @@ describe('util', () => {
           ['error', 'Super', 'error message'],
         ];
 
-        expect(util.extractLogLevelFromArgs(args[0], levels)).to.equal('info');
-        expect(util.extractLogLevelFromArgs(args[1], levels)).to.equal('error');
+        expect(util.extractLogLevelFromArgs(args[0], mockAdaptor)).to.equal('info');
+        expect(util.extractLogLevelFromArgs(args[1], mockAdaptor)).to.equal('error');
       });
 
       it('should remove the log level from the args array', () => {
@@ -28,7 +33,7 @@ describe('util', () => {
         const originalFirstArg = args[0];
         const originalNumArgs = args.length;
 
-        util.extractLogLevelFromArgs(args, levels);
+        util.extractLogLevelFromArgs(args, mockAdaptor);
 
         expect(args.length).equals(originalNumArgs - 1);
         expect(args[0]).not.to.equal(originalFirstArg);
@@ -39,14 +44,14 @@ describe('util', () => {
       it('should return undefined', () => {
         const args = ['unknown', 'This happened %d days ago', 8];
 
-        expect(util.extractLogLevelFromArgs(args, levels)).to.be.undefined;
+        expect(util.extractLogLevelFromArgs(args, mockAdaptor)).to.be.undefined;
       });
 
       it('should not modify the the args array', () => {
         const args = ['unknown', 'This happened %d days ago', 8];
         const originalArgs = [...args];
 
-        util.extractLogLevelFromArgs(args, levels);
+        util.extractLogLevelFromArgs(args, mockAdaptor);
 
         expect(args).to.deep.equal(originalArgs);
       });
@@ -55,31 +60,6 @@ describe('util', () => {
 
   describe('#isConsoloMochaTestOutput()', () => {
     it.skip('this is lazy of me, but...', () => { });
-  });
-
-  describe('#usesUnknownLogLevel()', () => {
-    it('should throw when called without levels array', () => {
-      expect(() => {
-        util.usesUnknownLogLevel(['err']);
-      }).to.throw();
-    });
-
-    it('should return false when fewer than two arguments are supplied', () => {
-      expect(util.usesUnknownLogLevel([], levels)).to.be.false;
-      expect(util.usesUnknownLogLevel(['debug'], levels)).to.be.false;
-    });
-
-    it('should return false when first argument is not a string', () => {
-      const nonStringArgs = [0, [], {}, undefined];
-
-      nonStringArgs.forEach((current) => {
-        expect(util.usesUnknownLogLevel([current, 'some message'], levels)).to.be.false;
-      });
-    });
-
-    it('should return true when the first argument passes for an attempted log level', () => {
-      expect(util.usesUnknownLogLevel(['foo', 'some message'], levels)).to.be.true;
-    });
   });
 
   describe('#validateAdaptor()', () => {
