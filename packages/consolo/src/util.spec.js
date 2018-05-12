@@ -81,4 +81,69 @@ describe('util', () => {
       expect(util.usesUnknownLogLevel(['foo', 'some message'], levels)).to.be.true;
     });
   });
+
+  describe('#validateAdaptor()', () => {
+    const dummyAdaptor = {
+      enhanceConsole: () => (true),
+      log: () => (true),
+      logLevels: [],
+    };
+
+    it('should not throw an error when supplied with a valid adaptor', () => {
+      expect(
+        () => (util.validateAdaptor(dummyAdaptor)),
+        'has required methods and props',
+      ).not.to.throw();
+    });
+
+    it('should throw an error if any required props are missing', () => {
+      const missingEnhanceMethod = { ...dummyAdaptor };
+      expect(
+        () => {
+          missingEnhanceMethod.enhanceConsole = true;
+          util.validateAdaptor(missingEnhanceMethod);
+        },
+        'throw when #enhanceConsole is not a function',
+      ).to.throw();
+      expect(
+        () => {
+          delete missingEnhanceMethod.enhanceConsole;
+          util.validateAdaptor(missingEnhanceMethod);
+        },
+        'throw for missing #enhanceConsole()',
+      ).to.throw();
+
+      const missingLogMethod = { ...dummyAdaptor };
+      expect(
+        () => {
+          missingLogMethod.log = 'not a function';
+          util.validateAdaptor(missingLogMethod);
+        },
+        'throw when #log is not a function',
+      ).to.throw();
+      expect(
+        () => {
+          delete missingLogMethod.log;
+          util.validateAdaptor(missingLogMethod);
+        },
+        'throw for missing #log()',
+      ).to.throw();
+
+      const missingLogLevels = { ...dummyAdaptor };
+      expect(
+        () => {
+          missingLogLevels.logLevels = 17;
+          util.validateAdaptor(missingLogLevels);
+        },
+        'throw when #logLevels is not an array',
+      ).to.throw();
+      expect(
+        () => {
+          delete missingLogLevels.logLevels;
+          util.validateAdaptor(missingLogLevels);
+        },
+        'throw for missing #logLevels',
+      ).to.throw();
+    });
+  });
 });

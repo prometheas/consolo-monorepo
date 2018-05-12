@@ -68,4 +68,26 @@ export default {
       && !levels.includes(args[0])
     );
   },
+
+  /**
+   * Throws an error if the supplied value does not seem to be a valid Consolo
+   * adaptor.
+   *
+   * @param {any} adaptor the value to evaluate
+   *
+   * @throws {Error}
+   */
+  validateAdaptor: (adaptor) => {
+    if (typeof adaptor.enhanceConsole !== 'function') {
+      throw Error('Consolo adaptor missing #enhanceConsole()');
+    }
+
+    if (typeof adaptor.log !== 'function') {
+      throw Error('Consolo adaptor missing #log()');
+    }
+
+    if (typeof adaptor.logLevels !== 'object') {
+      throw Error('Consolo adaptor missing #logLevels');
+    }
+  },
 };
