@@ -54,9 +54,40 @@ function containsConsoloMessage(messages) {
 
 describe('Library', () => {
   describe('#enhanceConsole()', () => {
+    const mockAdaptor = {
+      enhanceConsole: () => {
+        console.log = mockAdaptor.log;
+        console.debug = (...args) => { mockAdaptor.log('debug', ...args); };
+        console.error = (...args) => { mockAdaptor.log('error', ...args); };
+        console.info = (...args) => { mockAdaptor.log('info', ...args); };
+        console.warn = (...args) => { mockAdaptor.log('warn', ...args); };
+      },
+      log: (...args) => {
+        originalConsoleMethods.log(...args);
+      },
+      logLevels: ['debug', 'error', 'info', 'warn'],
+    };
+
+    it('should throw an error if not supplied an adaptor instance', () => {
+      expect(
+        () => (enhanceConsole(mockAdaptor) || restoreConsole()),
+        'accept valid adaptor',
+      ).not.to.throw();
+
+      expect(
+        () => (enhanceConsole()),
+        'reject missing adaptor',
+      ).to.throw();
+
+      expect(
+        () => (enhanceConsole(false)),
+        'reject invalid adaptor',
+      ).to.throw();
+    });
+
     it('should create a `consoloEnhanced` property on console', () => {
       expect(console.consoloEnhanced).to.be.undefined;
-      enhanceConsole();
+      enhanceConsole(mockAdaptor);
       expect(console.consoloEnhanced).to.be.true;
     });
 

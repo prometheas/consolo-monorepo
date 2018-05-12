@@ -13,23 +13,16 @@ const preservedConsoleMethods = {
   warn: console.warn,
 };
 
-const logLevels = {
-  default: ['debug', 'error', 'info', 'warn'],
-};
-
-const defaultConfigs = {
-  levels: logLevels.default,
-};
-
-const runtimeConfigs = { ...defaultConfigs };
+let consoloAdaptor;
 
 /**
  * Applies enhancements to the global console object.
  */
-export const enhanceConsole = () => {
-  Object.keys(consoleMethodOverrides).forEach((methodName) => {
-    console[methodName] = consoleMethodOverrides[methodName];
-  });
+export const enhanceConsole = (adaptor) => {
+  util.validateAdaptor(adaptor);
+
+  consoloAdaptor = adaptor;
+  consoloAdaptor.enhanceConsole();
 
   console.consoloEnhanced = true;
 };
@@ -44,7 +37,7 @@ export const enhanceConsole = () => {
 export const log = (...args) => {
   const level = util.extractLogLevelFromArgs(
     args,
-    runtimeConfigs.levels,
+    consoloAdaptor.logLevels,
   );
 
   if (!level) {
@@ -54,7 +47,7 @@ export const log = (...args) => {
         message: 'Consolo: log level missing from call console.log()',
       };
 
-      if (util.usesUnknownLogLevel(args, runtimeConfigs.levels)) {
+      if (util.usesUnknownLogLevel(args, consoloAdaptor.logLevels)) {
         err.message = `Consolo: unknown log level "${args[0]}" used`;
       }
 
@@ -67,10 +60,8 @@ export const log = (...args) => {
     }
 
     preservedConsoleMethods.error(...args);
-  } else if (level === 'error') {
-    preservedConsoleMethods.error(...args);
   } else {
-    preservedConsoleMethods.log(...args);
+    consoloAdaptor.log(...args);
   }
 };
 
@@ -85,12 +76,4 @@ export const restoreConsole = () => {
   console.info = preservedConsoleMethods.info;
   console.log = preservedConsoleMethods.log;
   console.warn = preservedConsoleMethods.warn;
-};
-
-const consoleMethodOverrides = {
-  debug: (...args) => (preservedConsoleMethods.debug(...args)),
-  error: (...args) => (preservedConsoleMethods.error(...args)),
-  info: (...args) => (preservedConsoleMethods.info(...args)),
-  log,
-  warn: (...args) => (preservedConsoleMethods.warn(...args)),
 };
