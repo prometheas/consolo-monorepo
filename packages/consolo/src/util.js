@@ -85,9 +85,5 @@ export default {
     if (typeof adaptor.log !== 'function') {
       throw Error('Consolo adaptor missing #log()');
     }
-
-    if (typeof adaptor.logLevels !== 'object') {
-      throw Error('Consolo adaptor missing #logLevels');
-    }
   },
 };

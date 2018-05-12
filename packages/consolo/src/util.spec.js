@@ -128,22 +128,6 @@ describe('util', () => {
         },
         'throw for missing #log()',
       ).to.throw();
-
-      const missingLogLevels = { ...dummyAdaptor };
-      expect(
-        () => {
-          missingLogLevels.logLevels = 17;
-          util.validateAdaptor(missingLogLevels);
-        },
-        'throw when #logLevels is not an array',
-      ).to.throw();
-      expect(
-        () => {
-          delete missingLogLevels.logLevels;
-          util.validateAdaptor(missingLogLevels);
-        },
-        'throw for missing #logLevels',
-      ).to.throw();
     });
   });
 });
