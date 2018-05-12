@@ -1,6 +1,4 @@
 /* eslint no-console: 0 */
-/* eslint no-underscore-dangle: 0 */
-/* eslint no-use-before-define: 0 */
 
 import { format } from 'util';
 import util from './util';
