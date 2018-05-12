@@ -3,6 +3,10 @@
 import { format } from 'util';
 import util from './util';
 
+import BaseAdaptor from './BaseAdaptor';
+
+export { BaseAdaptor };
+
 const preservedConsoleMethods = {
   debug: console.debug,
   error: console.error,
