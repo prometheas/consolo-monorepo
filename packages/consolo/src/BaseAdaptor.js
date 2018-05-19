@@ -1,7 +1,7 @@
 export default class BaseAdaptor {
   enhanceConsole(target) {
     /* eslint-disable no-param-reassign */
-    target.log = this.log;
+    target.log = (...args) => (this.log(...args));
     target.debug = (...args) => (this.log('debug', ...args));
     target.error = (...args) => (this.log('error', ...args));
     target.info = (...args) => (this.log('info', ...args));
