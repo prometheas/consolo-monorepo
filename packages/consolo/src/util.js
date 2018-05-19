@@ -59,12 +59,18 @@ const api = {
    * @throws {Error}
    */
   validateAdaptor: (adaptor) => {
-    if (typeof adaptor.enhanceConsole !== 'function') {
-      throw Error('Consolo adaptor missing #enhanceConsole()');
-    }
+    if (!adaptor.hasBeenValidatedByConsolo) {
+      if (typeof adaptor.enhanceConsole !== 'function') {
+        throw Error('Consolo adaptor missing #enhanceConsole()');
+      }
 
-    if (typeof adaptor.log !== 'function') {
-      throw Error('Consolo adaptor missing #log()');
+      if (typeof adaptor.log !== 'function') {
+        throw Error('Consolo adaptor missing #log()');
+      }
+
+      /* eslint-disable no-param-reassign */
+      adaptor.hasBeenValidatedByConsolo = true;
+      /* eslint-enable no-param-reassign */
     }
   },
 };

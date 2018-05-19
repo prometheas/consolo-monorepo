@@ -63,11 +63,11 @@ describe('util', () => {
   });
 
   describe('#validateAdaptor()', () => {
-    const dummyAdaptor = {
-      enhanceConsole: () => (true),
-      log: () => (true),
-      logLevels: [],
-    };
+    let dummyAdaptor;
+
+    beforeEach(() => {
+      dummyAdaptor = new MockAdaptor();
+    });
 
     it('should not throw an error when supplied with a valid adaptor', () => {
       expect(
@@ -108,6 +108,18 @@ describe('util', () => {
         },
         'throw for missing #log()',
       ).to.throw();
+    });
+
+    it('should add #hasBeenValidatedByConsolo flag to adaptor for faster validation', () => {
+      if (dummyAdaptor.hasBeenValidatedByConsolo) {
+        delete dummyAdaptor.hasBeenValidatedByConsolo;
+      }
+
+      util.validateAdaptor(dummyAdaptor);
+      expect(
+        dummyAdaptor.hasBeenValidatedByConsolo,
+        'confirm addition of flag prop',
+      ).to.be.true;
     });
   });
 });
