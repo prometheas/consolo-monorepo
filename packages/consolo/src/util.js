@@ -36,7 +36,7 @@ const api = {
       return false;
     }
 
-    const isDescribeOutput = (
+    const isOutputFromDescribeCallback = (
       args.length === 3
       && String(args[0]).includes('\u001b')
       && String(args[1]).match(/^\s+$/)
@@ -44,10 +44,10 @@ const api = {
     );
 
     /* eslint-disable no-control-regex */
-    const isItOutput = String(args[0]).match(/^\s+\u001b.+(✓|-|%d+\))/);
+    const isOutputFromItCallback = String(args[0]).match(/^\s+\u001b.+(✓|-|%d+\))/);
     /* eslint-enable no-control-regex */
 
-    return isDescribeOutput || isItOutput;
+    return isOutputFromDescribeCallback || isOutputFromItCallback;
   },
 
   /**
