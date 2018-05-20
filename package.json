@@ -3,7 +3,8 @@
   "description": "Progressively enhances the console object into a proper logger.",
   "scripts": {
     "build": "lerna run build",
-    "clean": "rm -rf ./node_modules && lerna run clean",
+    "clean": "lerna run clean && rm -rf ./node_modules",
+    "postinstall": "lerna bootstrap",
     "tdd": "env CONSOLO_TESTING=1 mocha --opts .mocha.opts --watch --reporter dot",
     "test": "env CONSOLO_TESTING=1 mocha --opts .mocha.opts"
   },
