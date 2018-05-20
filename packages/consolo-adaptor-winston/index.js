@@ -1,4 +1,4 @@
-const path = (process.env.CONSOLO_TESTING) ? './src/index' : './dist/index';
+const path = (process.env.CONSOLO_TESTING) ? './src' : './dist';
 
 /* eslint-disable import/no-dynamic-require */
 module.exports = require(path);
