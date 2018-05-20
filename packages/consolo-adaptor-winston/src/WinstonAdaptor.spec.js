@@ -65,11 +65,7 @@ describe('WinstonAdaptor', () => {
   });
 
   describe('using global singleton', () => {
-    let adaptor;
-
-    before(() => {
-      adaptor = new WinstonAdaptor(winston);
-    });
+    const adaptor = new WinstonAdaptor(winston);
 
     it('should pass console.log() calls to winston.log()', () => {
       const callArgs = ['info', 'test message'];
@@ -85,6 +81,32 @@ describe('WinstonAdaptor', () => {
 
       expect(
         winstonLogSpy.calledWithExactly(...callArgs),
+        'confirm delegation to winston',
+      ).to.be.true;
+    });
+  });
+
+  describe('using logger instance', () => {
+    const logger = new (winston.Logger)({
+      transports: [],
+    });
+    const loggerSpy = sinon.spy(logger, 'log');
+    const adaptor = new WinstonAdaptor(logger);
+
+    it('should pass console.log() calls to logger instance', () => {
+      const callArgs = ['info', 'winston logger instance test message'];
+
+      expect(
+        loggerSpy.calledWithExactly(...callArgs),
+        'preventing a false positive on next expect()',
+      ).to.be.false;
+
+      enhanceConsole(adaptor);
+      console.log(...callArgs);
+      restoreConsole();
+
+      expect(
+        loggerSpy.calledWithExactly(...callArgs),
         'confirm delegation to winston',
       ).to.be.true;
     });
