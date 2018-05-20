@@ -22,6 +22,7 @@
     "std-mocks": "^1.0.1"
   },
   "scripts": {
-    "build": "babel ./src --out-dir ./dist"
+    "build": "babel ./src --out-dir ./dist",
+    "clean": "rm -rf ./node_modules && rm -rf ./dist"
   }
 }
