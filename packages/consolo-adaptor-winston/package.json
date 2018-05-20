@@ -19,12 +19,14 @@
     "url": "https://github.com/prometheas/node-consolo-monorepo/issues"
   },
   "homepage": "https://github.com/prometheas/node-consolo-monorepo#readme",
-  "dependencies": {
+  "peerDependencies": {
     "consolo": "*",
     "winston": "^2.3.0"
   },
   "devDependencies": {
-    "sinon": "^1.17.4"
+    "consolo": "*",
+    "sinon": "^1.17.4",
+    "winston": "^2.3.0"
   },
   "scripts": {
     "build": "babel ./src --out-dir ./dist",
