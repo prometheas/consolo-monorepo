@@ -1,2 +1,3 @@
-# node-console-enchanced
-Progressively enhances the console object into a proper logger.
+# node-consolo-multirepo
+
+This multi-package repository includes the Consolo package, various logger adaptors, and other related utilities.
