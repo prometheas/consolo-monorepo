@@ -1,6 +1,1 @@
-export {
-  BaseAdaptor,
-  log,
-  enhanceConsole,
-  restoreConsole,
-} from './src/index';
+module.exports = require('./dist/index');

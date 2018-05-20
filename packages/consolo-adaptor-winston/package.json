@@ -1,27 +1,33 @@
 {
-  "name": "consolo",
+  "name": "consolo-adaptor-winston",
   "version": "0.0.0",
-  "description": "A progressive enhancement of Node's console into a logger that is not at all scruffy-looking.",
+  "description": "Consolo logging adaptor implementation for the great winston logger.",
   "main": "index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/prometheas/node-consolo-monorepo.git"
   },
   "keywords": [
+    "consolo",
+    "winston",
     "logging",
-    "logger",
-    "console"
+    "logger"
   ],
   "author": "John Lianoglou",
-  "license": "MIT",
+  "license": "ISC",
   "bugs": {
     "url": "https://github.com/prometheas/node-consolo-monorepo/issues"
   },
   "homepage": "https://github.com/prometheas/node-consolo-monorepo#readme",
+  "dependencies": {
+    "consolo": "*",
+    "winston": "^2.3.0"
+  },
   "devDependencies": {
-    "std-mocks": "^1.0.1"
+    "sinon": "^1.17.4"
   },
   "scripts": {
-    "build": "babel ./src --out-dir ./dist"
+    "build": "babel ./src --out-dir ./dist",
+    "clean": "rm -rf ./node_modules && rm -rf ./dist"
   }
 }
