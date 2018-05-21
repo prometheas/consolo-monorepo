@@ -185,8 +185,12 @@ At the end of the day, an adaptor instance must include the following methods:
 - `isLogLevel([string] level)`: answers whether the string in question is one of the configured logging levels.
 - `log([string] level, ...)`: sends a log message with the specified level to an instance of whatever logger it supports.
 
-It should be painless to implement an adaptor for whatever logger you like.  And, if you'd like to implement an adaptor for a community-maintained logger that isn't yet available (and you'd like to share your adaptor with the community), please check out the contribution guidelines!
+It should be painless to implement an adaptor for whatever logger you like.  And, if you'd like to implement an adaptor for a community-maintained logger that isn't yet available (and you'd like to share your adaptor with the community), please check out the [contribution guidelines](https://github.com/prometheas/consolo-monorepo/blob/master/CONTRIBUTING.md)!
 
 ### API
 
 Coming soon.
+
+## Project Info
+
+This is part of the [Consolo monorepo](https://github.com/prometheas/consolo-monorepo), hosted on Github.  Learn all you like aobut the project, its MIT licensing, and more there.
