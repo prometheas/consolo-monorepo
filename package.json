@@ -1,6 +1,7 @@
 {
   "name": "console-enchanced-monorepo",
   "description": "Progressively enhances the console object into a proper logger.",
+  "private": true,
   "scripts": {
     "build": "lerna run build",
     "clean": "lerna run clean && rm -rf ./node_modules",
