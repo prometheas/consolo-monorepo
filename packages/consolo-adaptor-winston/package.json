@@ -5,7 +5,7 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/prometheas/node-consolo-monorepo.git"
+    "url": "git+https://github.com/prometheas/consolo-monorepo.git"
   },
   "keywords": [
     "consolo",
@@ -16,9 +16,9 @@
   "author": "John Lianoglou",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/prometheas/node-consolo-monorepo/issues"
+    "url": "https://github.com/prometheas/consolo-monorepo/issues"
   },
-  "homepage": "https://github.com/prometheas/node-consolo-monorepo#readme",
+  "homepage": "https://github.com/prometheas/consolo-monorepo#readme",
   "peerDependencies": {
     "consolo": "*",
     "winston": "^2.3.0"

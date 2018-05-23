@@ -5,7 +5,7 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/prometheas/node-consolo-monorepo.git"
+    "url": "git+https://github.com/prometheas/consolo-monorepo.git"
   },
   "keywords": [
     "logging",
@@ -15,9 +15,9 @@
   "author": "John Lianoglou",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/prometheas/node-consolo-monorepo/issues"
+    "url": "https://github.com/prometheas/consolo-monorepo/issues"
   },
-  "homepage": "https://github.com/prometheas/node-consolo-monorepo#readme",
+  "homepage": "https://github.com/prometheas/consolo-monorepo#readme",
   "devDependencies": {
     "std-mocks": "^1.0.1"
   },
