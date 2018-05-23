@@ -1,0 +1,35 @@
+{
+  "name": "consolo-adaptor-winston",
+  "version": "0.0.0",
+  "description": "Consolo logging adaptor implementation for the great winston logger.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prometheas/consolo-monorepo.git"
+  },
+  "keywords": [
+    "consolo",
+    "winston",
+    "logging",
+    "logger"
+  ],
+  "author": "John Lianoglou",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/prometheas/consolo-monorepo/issues"
+  },
+  "homepage": "https://github.com/prometheas/consolo-monorepo#readme",
+  "peerDependencies": {
+    "consolo": "*",
+    "winston": "^2.3.0"
+  },
+  "devDependencies": {
+    "consolo": "*",
+    "sinon": "^1.17.4",
+    "winston": "^2.3.0"
+  },
+  "scripts": {
+    "build": "babel ./src --out-dir ./dist",
+    "clean": "rm -rf ./node_modules && rm -rf ./dist"
+  }
+}

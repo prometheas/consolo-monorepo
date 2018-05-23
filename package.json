@@ -1,12 +1,18 @@
 {
   "name": "console-enchanced-monorepo",
   "description": "Progressively enhances the console object into a proper logger.",
+  "private": true,
   "scripts": {
-    "test": "mocha --opts .mocha.opts"
+    "build": "lerna run build",
+    "clean": "lerna run clean && rm -rf ./node_modules",
+    "lint": "eslint ./packages/*/src/**.js",
+    "postinstall": "lerna bootstrap",
+    "tdd": "env CONSOLO_TESTING=1 mocha --opts .mocha.opts --watch --reporter dot",
+    "test": "env CONSOLO_TESTING=1 mocha --opts .mocha.opts"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/prometheas/node-console-enchanced.git"
+    "url": "git+https://github.com/prometheas/consolo-monorepo.git"
   },
   "keywords": [
     "logger",
@@ -16,15 +22,17 @@
   "author": "John Lianoglou <prometheas@users.github.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/prometheas/node-console-enchanced/issues"
+    "url": "https://github.com/prometheas/consolo-monorepo/issues"
   },
-  "homepage": "https://github.com/prometheas/node-console-enchanced#readme",
+  "homepage": "https://github.com/prometheas/consolo-monorepo#readme",
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-preset-airbnb": "^2.4.0",
     "babel-register": "^6.26.0",
     "chai": "^4.1.2",
     "eslint": "^4.9.0",
     "eslint-config-airbnb": "16.1.0",
+    "eslint-import-resolver-lerna": "^1.0.0",
     "eslint-plugin-import": "^2.11.0",
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.4.0",
