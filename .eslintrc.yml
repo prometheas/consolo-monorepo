@@ -1,5 +1,9 @@
 ---
   extends: airbnb
-  env: node
+  env:
+    node: true
+    es6: true
+  parserOptions:
+    sourceType: module
   rules:
     import/no-extraneous-dependencies: 0
