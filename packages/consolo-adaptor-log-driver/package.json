@@ -1,0 +1,36 @@
+{
+  "name": "consolo-adaptor-log-driver",
+  "version": "0.0.0",
+  "description": "Consolo logging adaptor implementation for the great winston logger.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prometheas/consolo-monorepo.git"
+  },
+  "keywords": [
+    "consolo",
+    "consolo adaptor",
+    "log-driver",
+    "logging",
+    "logger"
+  ],
+  "author": "John Lianoglou",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/prometheas/consolo-monorepo/issues"
+  },
+  "homepage": "https://github.com/prometheas/consolo-monorepo#readme",
+  "peerDependencies": {
+    "consolo": "*",
+    "log-driver": "^1.2.7"
+  },
+  "devDependencies": {
+    "consolo": "*",
+    "sinon": "^1.17.4",
+    "log-driver": "^1.2.7"
+  },
+  "scripts": {
+    "build": "babel ./src --out-dir ./dist",
+    "clean": "rm -rf ./node_modules && rm -rf ./dist"
+  }
+}
