@@ -2,6 +2,9 @@
 
 Welcome to the multi-package git repository for the Consolo package, various related logger adaptors, and other supporting utilities.
 
+[![Build Status](https://travis-ci.org/prometheas/consolo-monorepo.svg?branch=master)](https://travis-ci.org/prometheas/consolo-monorepo)
+[![Waffle.io - Columns and their card count](https://badge.waffle.io/prometheas/generator-multistack-tdd-kata.svg?columns=all)](https://waffle.io/prometheas/generator-multistack-tdd-kata)
+
 ## What is Consolo?
 
 Consolo (pronounced—and this is absolutely critical to note—to rhyme with everyone's favorite carbonite-encased "scoundrel") is a light-weight library that offers "[progressive enhancement](https://en.wikipedia.org/wiki/Progressive_enhancement)" atop Node's `console` object, allowing you to connect it to a more featureful logger solution.  Consolo is also, very notably, not at all [scruffy-looking](https://www.youtube.com/watch?v=gYoDBX1gobM).
