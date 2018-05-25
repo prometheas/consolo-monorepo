@@ -5,10 +5,12 @@
   "scripts": {
     "build": "lerna run build",
     "clean": "lerna run clean && rm -rf ./node_modules",
-    "lint": "eslint ./packages/*/src/**.js",
+    "lint": "yarn lint:js",
+    "lint:js": "eslint ./packages/*/src/**.js",
     "postinstall": "lerna bootstrap",
     "tdd": "env CONSOLO_TESTING=1 mocha --opts .mocha.opts --watch --reporter dot",
-    "test": "env CONSOLO_TESTING=1 mocha --opts .mocha.opts"
+    "test": "env CONSOLO_TESTING=1 mocha --opts .mocha.opts",
+    "validate": "yarn lint && yarn test"
   },
   "repository": {
     "type": "git",
