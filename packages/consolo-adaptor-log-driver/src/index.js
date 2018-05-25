@@ -1,3 +1,3 @@
-import WinstonAdaptor from './LogDriverAdaptor';
+import LogDriverAdaptor from './LogDriverAdaptor';
 
 export default LogDriverAdaptor;

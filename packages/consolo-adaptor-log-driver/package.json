@@ -27,7 +27,8 @@
   "devDependencies": {
     "consolo": "*",
     "sinon": "^1.17.4",
-    "log-driver": "^1.2.7"
+    "log-driver": "^1.2.7",
+    "std-mocks": "^1.0.1"
   },
   "scripts": {
     "build": "babel ./src --out-dir ./dist",

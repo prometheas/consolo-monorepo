@@ -6,6 +6,7 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
 import logDriver from 'log-driver';
+import stdMocks from 'std-mocks';
 
 import {
   enhanceConsole,
@@ -15,22 +16,13 @@ import {
 import LogDriverAdaptor from './LogDriverAdaptor';
 
 describe('LogDriverAdaptor', () => {
-  const logger = logDriver({ level: 'info' });
-  let logMethodSpy;
-
-  before(() => {
-    logMethodSpy = sinon.spy(logger, 'log');
-  });
-
-  after(() => {
-    logMethodSpy.restore();
-  });
-
   describe('instance', () => {
     describe('#isLogLevel()', () => {
+      const logger = logDriver({ level: 'info' });
+
       it('should return true when provided a known log level', () => {
         const adaptor = new LogDriverAdaptor(logger);
-        const validLevel = Object.keys(winston.levels)[1];
+        const validLevel = logger.levels[1];
 
         expect(
           adaptor.isLogLevel(validLevel),
@@ -50,59 +42,60 @@ describe('LogDriverAdaptor', () => {
     });
 
     describe('#log()', () => {
-      it('should delegate to winston.log()', () => {
+      it('should delegate to the appropriate logging method', () => {
+        const level = 'error';
+        const logger = logDriver({ level });
         const adaptor = new LogDriverAdaptor(logger);
-        const callArgs = ['error', 'first arg', 'second arg'];
+        const loggingMethodSpy = sinon.spy(logger, level);
+        const logDriverMethodCallArgs = ['first arg', 'second arg'];
 
-        adaptor.log(...callArgs);
-        expect(logMethodSpy.calledOnce).to.be.true;
-        expect(logMethodSpy.calledWithExactly(...callArgs));
+        adaptor.log(level, ...logDriverMethodCallArgs);
+
+        expect(
+          loggingMethodSpy.called,
+          'confirm logging method was called at all',
+        ).to.be.true;
+
+        expect(
+          loggingMethodSpy.calledWith(...logDriverMethodCallArgs),
+          'confirm logging method was called with specified args',
+        ).to.be.true;
       });
     });
   });
 
-  describe('using global singleton', () => {
-    const adaptor = new LogDriverAdaptor(logger);
-
-    it('should pass console.log() calls to winston.log()', () => {
-      const callArgs = ['info', 'test message'];
-
-      expect(
-        logMethodSpy.calledWithExactly(...callArgs),
-        'preventing a false positive on next expect()',
-      ).to.be.false;
-
-      enhanceConsole(adaptor);
-      console.log(...callArgs);
-      restoreConsole();
-
-      expect(
-        logMethodSpy.calledWithExactly(...callArgs),
-        'confirm delegation to winston',
-      ).to.be.true;
-    });
-  });
-
   describe('using logger instance', () => {
-    const loggerSpy = sinon.spy(logger, 'log');
-    const adaptor = new LogDriverAdaptor(logger);
-
-    it('should pass console.log() calls to logger instance', () => {
-      const callArgs = ['info', 'winston logger instance test message'];
+    it('should pass console.log("info") calls to logDriver#info()', () => {
+      const level = 'info';
+      const logger = logDriver({ level });
+      const adaptor = new LogDriverAdaptor(logger);
+      const loggingMethodSpy = sinon.spy(logger, level);
+      const logDriverMethodCallArgs = ['log-driver logger instance test message'];
+      let output;
 
       expect(
-        loggerSpy.calledWithExactly(...callArgs),
+        loggingMethodSpy.calledWith(...logDriverMethodCallArgs),
         'preventing a false positive on next expect()',
       ).to.be.false;
 
-      enhanceConsole(adaptor);
-      console.log(...callArgs);
-      restoreConsole();
+      try {
+        stdMocks.use({ print: false });
+        enhanceConsole(adaptor);
+        console.log(level, ...logDriverMethodCallArgs);
+        restoreConsole();
+        stdMocks.restore();
 
-      expect(
-        loggerSpy.calledWithExactly(...callArgs),
-        'confirm delegation to winston',
-      ).to.be.true;
+        expect(
+          loggingMethodSpy.calledWith(...logDriverMethodCallArgs),
+          `confirm delegation to log-driver of ${level} message`,
+        ).to.be.true;
+
+        output = stdMocks.flush();
+        expect(output.stdout).matches(/\[info\]/);
+      } catch (error) {
+        restoreConsole();
+        throw error;
+      }
     });
   });
 });
