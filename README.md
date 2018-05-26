@@ -40,7 +40,7 @@ Consolo (pronounced—and this is absolutely critical to note—to rhyme with ev
 ~~~~~~~~~~~~~~~:Z887::::,NMMMMMMMMMMMMMMMN77II?=?===$NMMMNNND$::::::::::::::::::
 </pre>
 
-⚠️ ***Warning*** ⚠️
+⚠️ _**Warning**_ ⚠️
 
 > Prepare yourself for a raft of self-indulgent, often painfully-contrived (and thoroughly unlicensed) Star Wars references ahead.  (Don't worry, though—I'll cite nothing from any material released after 1983.  Because I'm a fucking gentleman.)
 

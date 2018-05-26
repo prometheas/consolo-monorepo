@@ -1,0 +1,14 @@
+{
+  "settings": {
+    "bullet": "-",
+    "ruleRepetition": 3,
+    "fences": true
+  },
+  "plugins": [
+    "preset-lint-markdown-style-guide",
+    ["lint-ordered-list-marker-value", "ordered"],
+    ["lint-maximum-line-length", false],
+    ["lint-strong-marker", "*"],
+    ["lint-emphasis-marker", "_"]
+  ]
+}

@@ -37,7 +37,7 @@ Consolo (pronounced—and this is absolutely critical to note—to rhyme with ev
 ~~~~~~~~~~~~~~~:Z887::::,NMMMMMMMMMMMMMMMN77II?=?===$NMMMNNND$::::::::::::::::::
 </pre>
 
-⚠️ ***Warning***
+⚠️ _**Warning**_
 
 > Look. I'm going to be honest with you: if you keep reading, you're gonna run into a raft of contrived Star Wars references, OK?
 
@@ -54,7 +54,7 @@ This can be especially useful to library package authors, as it allows them to a
 First, install consolo and the winston adaptor to your project:
 
 ```sh
-$ npm install --save consolo consolo-adaptor-winston winston
+npm install --save consolo consolo-adaptor-winston winston
 ```
 
 Next, create `lib.js`, `app-no-consolo.js`, and `app-consolo.js` files, as follows:
@@ -132,7 +132,7 @@ It's at the app level that you'll want to add `consolo` (along with whatever ada
 To repeat the earlier example demonstrating winston logging, simply install:
 
 ```sh
-$ npm install --save consolo consolo-adaptor-winston winston
+npm install --save consolo consolo-adaptor-winston winston
 ```
 
 And add the following lines to your application's initialization script:
