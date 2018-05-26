@@ -8,3 +8,8 @@ node_js:
 - '7'
 - '6'
 
+before_install:
+  - yarn install
+
+script:
+  - yarn validate
