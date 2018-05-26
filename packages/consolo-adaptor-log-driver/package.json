@@ -1,6 +1,6 @@
 {
   "name": "consolo-adaptor-log-driver",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Consolo logging adaptor implementation for the great winston logger.",
   "main": "index.js",
   "repository": {
@@ -25,9 +25,9 @@
     "log-driver": "^1.2.7"
   },
   "devDependencies": {
-    "consolo": "*",
-    "sinon": "^1.17.4",
+    "consolo": "^0.1.0",
     "log-driver": "^1.2.7",
+    "sinon": "^1.17.4",
     "std-mocks": "^1.0.1"
   },
   "scripts": {

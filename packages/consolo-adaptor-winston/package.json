@@ -1,6 +1,6 @@
 {
   "name": "consolo-adaptor-winston",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Consolo logging adaptor implementation for the great winston logger.",
   "main": "index.js",
   "repository": {
@@ -25,7 +25,7 @@
     "winston": "^2.3.0"
   },
   "devDependencies": {
-    "consolo": "*",
+    "consolo": "^0.1.0",
     "sinon": "^1.17.4",
     "winston": "^2.3.0"
   },
