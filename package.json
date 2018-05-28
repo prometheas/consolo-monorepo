@@ -5,6 +5,7 @@
   "scripts": {
     "build": "lerna run build",
     "clean": "lerna run clean && rm -rf ./node_modules",
+    "commit": "git-cz",
     "lint": "yarn lint:js && yarn lint:md",
     "lint:js": "eslint ./packages/*/src/**.js",
     "lint:md": "remark .",

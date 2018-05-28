@@ -1,0 +1,11 @@
+#! /bin/bash
+
+commitlint -e $GIT_PARAMS
+
+EXIT_STATUS="$?"
+
+if [ $EXIT_STATUS -ne 0 ]
+then
+  echo -e "\n\033[0;33m💫\033[0m   Use \033[0;32myarn commit\033[0m if you'd like prompts for your commit message\n"
+  exit $EXIT_STATUS
+fi
