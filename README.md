@@ -3,6 +3,7 @@
 Welcome to the multi-package git repository for the Consolo package, various related logger adaptors, and other supporting utilities.
 
 [![Build Status](https://travis-ci.org/prometheas/consolo-monorepo.svg?branch=master)](https://travis-ci.org/prometheas/consolo-monorepo)
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 [![Waffle.io - Columns and their card count](https://badge.waffle.io/prometheas/generator-multistack-tdd-kata.svg?columns=all)](https://waffle.io/prometheas/generator-multistack-tdd-kata)
 
 ## What is Consolo?
