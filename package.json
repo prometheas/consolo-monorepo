@@ -56,11 +56,5 @@
     "commitizen": {
       "path": "@commitlint/prompt"
     }
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -e $GIT_PARAMS",
-      "pre-push": "yarn validate"
-    }
   }
 }
