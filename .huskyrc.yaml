@@ -1,4 +1,5 @@
 ---
   hooks:
     commit-msg: ./scripts/validate-commit-msg
+    pre-commit: yarn validate
     pre-push: yarn validate
