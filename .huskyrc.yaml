@@ -3,3 +3,7 @@
     commit-msg: ./scripts/validate-commit-msg
     pre-commit: yarn validate
     pre-push: yarn validate
+    post-checkout: echo "⚠️   You have just changed branches; consider reinstalling your dependencies"
+    post-merge: |
+      echo "⚠️   Reinstalling dependencies after merge" && \
+      yarn install
