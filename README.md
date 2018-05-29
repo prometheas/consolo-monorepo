@@ -8,7 +8,9 @@ Welcome to the multi-package git repository for the Consolo package, various rel
 
 ## What is Consolo?
 
-Consolo (pronounced—and this is absolutely critical to note—to rhyme with everyone's favorite carbonite-encased "scoundrel") is a light-weight library that offers "[progressive enhancement](https://en.wikipedia.org/wiki/Progressive_enhancement)" atop Node's `console` object, allowing you to connect it to a more featureful logger solution.  Consolo is also, very notably, not at all [scruffy-looking](https://www.youtube.com/watch?v=gYoDBX1gobM).
+Consolo (pronounced—and this is absolutely critical to note—to rhyme with everyone's favorite carbonite-encased "scoundrel") is a light-weight library that offers "[progressive enhancement](https://en.wikipedia.org/wiki/Progressive_enhancement)" atop Node's global in-built `console` object, allowing you to connect it to a more featureful logger solution.  This technique of enhancing the `console` object allows library authors to issue log messages from their code that both works "out of the box" in any Node app, but that can also correctly map to whatever (presumably more sophisticated) logging solution an app deveoper might elect to use for their project.
+
+Consolo is also, very notably, not at all [scruffy-looking](https://www.youtube.com/watch?v=gYoDBX1gobM).
 
 <pre style="line-height:90%;">
 ~~~~~~~~~~~~~~~~~~~~~~~~~~::::+DN8$Z8NDMMN8Z87::::::::::::::::::::::::::::::::::
@@ -55,15 +57,17 @@ Browse the packages in the `packages` directory.
 
 ## Contributing
 
-Interested in pitching in?  That's great.  Please be aware of the following:
+Interested in pitching in?  That's great.  I'd be grateful for feedback, ideas, bug fixes, and doc updates.  Please be aware of the following:
 
 - Be nice to people.
 - All contributions happen through Pull Requests.
 - All code contributions must be accompanied by automated tests.
 
+This project uses [conventional commits](https://conventionalcommits.org) for developer friendliness, and to facilitate automated compliance with [semantic versioning](http://semver.org/).
+
 ## Legal Stuff
 
-In short, don't sue me.  Neither for my Star Wars references, nor for whatever harm my software did to your computer and/or family.  Also, please feel free do whatever the hell you want with this.
+In short, don't sue me.  Neither for my insufferable Star Wars references, nor for whatever harm my software did to your life.  Also, please feel free do whatever the hell you want with this.
 
 ### MIT License
 
