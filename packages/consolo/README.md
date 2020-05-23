@@ -125,6 +125,13 @@ When you're writing a library, you'll want to keep the following things in mind:
 - If you're using [ESLint](https://eslint.org), make sure the `no-console` rule is disabled (at least for the server-side code).
 - You may _optionally_ want to consider adding `consolo` as a peer dependency to indicate to dependent projects that your library supports it, but that's entirely up to you.
 
+💫 If your library conforms to the Consolo logging convention, you can tell the world by adding this badge to your package's main README file:
+
+```markdown
+[![Consolo compatible](https://img.shields.io/badge/consolo-compatible-green.svg?longCache=true&style=flat)](https://github.com/prometheas/consolo-monorepo)
+```
+
+
 ### Application Authors
 
 It's at the app level that you'll want to add `consolo` (along with whatever adaptor is needed to support the logging library you intend to use) as a dependency.
