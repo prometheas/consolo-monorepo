@@ -9,7 +9,7 @@ Welcome to the multi-package git repository for the Consolo package, various rel
 
 ## What is Consolo?
 
-Consolo (pronounced—and this is absolutely critical to note—to rhyme with everyone's favorite carbonite-encased "scoundrel") is a light-weight library that offers "[progressive enhancement](https://en.wikipedia.org/wiki/Progressive_enhancement)" atop Node's global in-built `console` object, allowing you to connect it to a more featureful logger solution.  This technique of enhancing the `console` object allows library authors to issue log messages from their code that both works "out of the box" in any Node app, but that can also correctly map to whatever (presumably more sophisticated) logging solution an app deveoper might elect to use for their project.
+Consolo (pronounced—and this is absolutely critical to note—to rhyme with everyone's favorite carbonite-encased "scoundrel") is a light-weight library that applies "[progressive enhancement](https://en.wikipedia.org/wiki/Progressive_enhancement)" atop Node's global in-built `console` object, allowing your app to connect it to a more featureful logger solution.  This technique of enhancing the `console` object allows library authors to issue log messages from their code that both works "out of the box" in any Node app, but that can also correctly map to whatever (presumably more sophisticated) logging solution an app deveoper might elect to use for their project.  Moreover, if you look at its name etymologically (using the term loosely, here—bear with me…), it reads as a portmanteau that suggest "using only `console`": _con(sole) + solo_.
 
 Consolo is also, very notably, not at all [scruffy-looking](https://www.youtube.com/watch?v=gYoDBX1gobM).
 
@@ -48,7 +48,13 @@ Consolo is also, very notably, not at all [scruffy-looking](https://www.youtube.
 
 > Prepare yourself for a raft of self-indulgent, often painfully-contrived (and thoroughly unlicensed) Star Wars references ahead.  (Don't worry, though—I'll cite nothing from any material released after 1983.  Because I'm a fucking gentleman.)
 
-You can learn more about how to use Consolo in your projects [here](./packages/consolo/README.md).
+You can learn more about [how to write Consolo-compliant libraries](./packages/consolo#library-authors), [how to effectively use compliant libraries in your app(s)](./packages/consolo#application-authors), and more [here](./packages/consolo/README.md#usage).
+
+💫 If your library conforms to the Consolo logging convention, you can tell the world by adding this badge to your package's main README file:
+
+```markdown
+[![Consolo compatible](https://img.shields.io/badge/consolo-compatible-green.svg?longCache=true&style=flat)](https://github.com/prometheas/consolo-monorepo)
+```
 
 ### What's In This Repository?
 
