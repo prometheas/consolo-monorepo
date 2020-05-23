@@ -1,4 +1,17 @@
 {
   "eslint.autoFixOnSave": true,
   "nodeTdd.glob": "packages/*/src/**.js",
+  "mocha.files.glob": "packages/*/src/*.spec.js",
+  "mocha.options": {
+    "js": "babel-register"
+  },
+  "mocha.requires": [
+    "babel-register"
+  ],
+  "mocha.logVerbose": true,
+  "mocha.showInExplorer": true,
+  "mocha.files.ignore": [
+    "**/node_modules/**/*",
+    "./packages/**/dist/**/*"
+  ]
 }
